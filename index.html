@@ -1,17 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>playground</title>
+    <title>Malayalam Insult Extension Generator</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+        .form-group { margin: 20px 0; }
+        button { background: #ff6b6b; color: white; padding: 10px 20px; border: none; }
+    </style>
 </head>
 <body>
-    <label for="typingBox">type smting here?</label>
-     <textarea id="typingBox" placeholder="Start typing..."></textarea>
-     <input type="file" id="slowSound" accept="audio/*" />
-    <input type="file" id="mediumSound" accept="audio/*" />
-    <input type="file" id="fastSound" accept="audio/*" />
+    <h1>Create Your Malayalam Typing Insult Extension</h1>
+    
+    <div class="form-group">
+        <label>Typing Speed Threshold (WPM):</label>
+        <input type="number" id="threshold" value="30">
+    </div>
+    
+    <div class="form-group">
+        <label>Upload Custom Audio:</label>
+        <input type="file" id="audioFile" accept=".mp3,.wav" multiple>
+    </div>
+    
     <button onclick="generateExtension()">Generate Extension</button>
-
-    <script src="script.js"></script>
+    
+    <script>
+        function generateExtension() {
+            const threshold = document.getElementById('threshold').value;
+            
+            // This would generate the extension files
+            alert(`Extension will insult users typing below ${threshold} WPM!`);
+            
+            // For hackathon: just download a pre-made extension with custom settings
+            downloadExtension(threshold);
+        }
+        
+        function downloadExtension(threshold) {
+            // Create a simple download link
+            const link = document.createElement('a');
+            link.download = 'malayalam-insult-extension.zip';
+            link.href = 'data:text/plain,Your extension is ready!';
+            link.click();
+        }
+    </script>
 </body>
 </html>
