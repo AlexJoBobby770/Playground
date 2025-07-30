@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Typing Malayalam Judge",
+  "version": "1.0",
+  "description": "Judges your typing speed in Malayalam",
+  "permissions": ["scripting", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["audio/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
