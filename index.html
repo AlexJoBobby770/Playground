@@ -1,49 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malayalam Typing Judge Extension Generator</title>
+    
+    <!-- Include JSZip library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <title>Malayalam Insult Extension Generator</title>
-    <style>
-        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
-        .form-group { margin: 20px 0; }
-        button { background: #ff6b6b; color: white; padding: 10px 20px; border: none; }
-    </style>
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Create Your Malayalam Typing Judge Extension</h1>
-    
-    <div class="form-group">
-        <label>Typing Speed Threshold (CPS):</label>
-        <input type="number" id="threshold" value="2">
+    <div class="container">
+        <h1>🎯 Malayalam Typing Judge Extension Generator</h1>
+        
+        <!-- Threshold Input Section -->
+        <div class="form-group">
+            <label>⚡ Typing Speed Threshold (Characters Per Second):</label>
+            <input type="number" id="threshold" value="2" min="0.5" max="10" step="0.1">
+            <div class="speed-info">
+                <strong>Speed Guide:</strong><br>
+                • Below 2 CPS = Slow (gets insults)<br>
+                • 2-4 CPS = Medium (neutral sounds)<br>
+                • Above 4 CPS = Fast (gets praise)
+            </div>
+        </div>
+        
+        <!-- Audio Upload Section -->
+        <div class="form-group">
+            <label>🎵 Upload Your Malayalam Audio Files:</label>
+            
+            <label>🐌 Slow Typing Audio (insults):</label>
+            <input type="file" id="audioFileSlow" accept=".mp3,.wav,.ogg">
+            
+            <label>⚖️ Medium Typing Audio (neutral):</label>
+            <input type="file" id="audioFileMedium" accept=".mp3,.wav,.ogg">
+            
+            <label>🚀 Fast Typing Audio (praise):</label>
+            <input type="file" id="audioFileFast" accept=".mp3,.wav,.ogg">
+        </div>
+        
+        <!-- Generate Button -->
+        <button onclick="generateExtension()" id="generateBtn">
+            🚀 Generate Chrome Extension
+        </button>
+        
+        <!-- Status Messages -->
+        <div id="status"></div>
+        
+        <!-- Installation Instructions -->
+        <div class="form-group">
+            <h3>📝 How to Install:</h3>
+            <ol>
+                <li>Download the generated ZIP file</li>
+                <li>Unzip it to a folder</li>
+                <li>Open Chrome → go to <code>chrome://extensions/</code></li>
+                <li>Turn on "Developer mode" (top right toggle)</li>
+                <li>Click "Load unpacked" and select your unzipped folder</li>
+                <li>Start typing anywhere and get judged in Malayalam! 🎭</li>
+            </ol>
+        </div>
     </div>
-    
-    <div class="form-group">
-        <label>Upload Your Own Sound (slow):</label>
-        <input type="file" id="audioFileslow" accept=".mp3,.wav" multiple>
-        <br>
-        <label>Upload Your Own Sound (medium):</label>
-        <input type="file" id="audioFilemdeium" accept=".mp3,.wav" multiple>
-        <br>
-        <label>Upload Your Own Sound (fast):</label>
-        <input type="file" id="audioFilefast" accept=".mp3,.wav" multiple>
-    </div>
-    
-    <button onclick="generateExtension()">Generate Chrome Extension</button>
-    
-    <script>
-        function generateExtension() {
-            const threshold = document.getElementById('threshold').value;
-            alert(`This extension will insult users typing below ${threshold} CPS!`);
-           
-            downloadFakeExtension();
-        }
 
-        function downloadFakeExtension() {
-            const link = document.createElement('a');
-            link.download = 'malayalam-insult-extension.txt';
-            link.href = 'data:text/plain,Install the extension folder manually in Chrome :)';
-            link.click();
-        }
-    </script>
+    <!-- Include all JavaScript files in order -->
+    <script src="scriptTemplate.js"></script>
+    <script src="zipCreator.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
