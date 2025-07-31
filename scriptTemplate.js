@@ -14,7 +14,7 @@ let startTime = null;
 let charCount = 0;
 let lastAudioTime = 0;
 const THRESHOLD = ${threshold};
-const COOLDOWN_TIME = 8000; // 8 seconds between audio plays
+const COOLDOWN_TIME = 5000; // 5 seconds between audio plays
 
 // Listen for typing on input fields
 document.addEventListener('input', function(event) {
@@ -27,7 +27,7 @@ function handleTyping(event) {
     const element = event.target;
     const tagName = element.tagName.toLowerCase();
     
-    if (tagName !== 'input' && tagName !== 'textarea') {
+    if (tagName !== 'input' && tagName !== 'textarea' && !isContentEditable) {
         return; // Ignore other elements
     }
     

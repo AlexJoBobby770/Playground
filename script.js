@@ -1,10 +1,7 @@
-// main.js - Main website functionality
 
-// Main function called when user clicks generate button
 async function generateExtension() {
     console.log('Generate button clicked!');
-    
-    // Get user inputs
+   
     const threshold = parseFloat(document.getElementById('threshold').value);
     const audioSlow = document.getElementById('audioFileSlow').files[0];
     const audioMedium = document.getElementById('audioFileMedium').files[0];
