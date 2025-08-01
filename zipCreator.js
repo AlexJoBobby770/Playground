@@ -38,7 +38,7 @@ function createManifestContent() {
         ],
         "web_accessible_resources": [
             {
-                "resources": ["audio/*"],
+                "resources": ["audio/*.mp3"],
                 "matches": ["<all_urls>"]
             }
         ]

@@ -96,11 +96,11 @@ function setupFileValidation() {
 
 // Check if uploaded file is valid
 function validateAudioFile(file, inputElement) {
-    const validTypes = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/ogg'];
+    const validTypes = ['audio/mp3'];
     const maxSize = 5 * 1024 * 1024; // 5MB
     
     if (!validTypes.includes(file.type)) {
-        alert('Please upload a valid audio file (MP3, WAV, or OGG)');
+        alert('Please upload a valid audio file (MP3, WAV,)');
         inputElement.value = '';
         return false;
     }
