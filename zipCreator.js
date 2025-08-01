@@ -55,17 +55,12 @@ async function addAudioFiles(zip, audioSlow, audioMedium, audioFast) {
     // Create audio folder in ZIP
     const audioFolder = zip.folder("audio");
     
-    // Get file extensions
-    const slowExt = getFileExtension(audioSlow.name);
-    const mediumExt = getFileExtension(audioMedium.name);
-    const fastExt = getFileExtension(audioFast.name);
+    // Convert all files to MP3 naming (regardless of input format)
+    audioFolder.file("slow.mp3", audioSlow);
+    audioFolder.file("medium.mp3", audioMedium);
+    audioFolder.file("fast.mp3", audioFast);
     
-    // Add files with correct names
-    audioFolder.file("slow" + slowExt, audioSlow);
-    audioFolder.file("medium" + mediumExt, audioMedium);
-    audioFolder.file("fast" + fastExt, audioFast);
-    
-    console.log('Audio files added successfully');
+    console.log('Audio files added with standardized MP3 names');
 }
 
 // Get file extension from filename
