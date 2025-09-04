@@ -1,15 +1,17 @@
+<!DOCTYPE html>
 <html>
     <head>
+        <title>Login Page</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h1 id="head">LOGIN </h1>
+        <h1 id="head">LOGIN</h1>
         <form>
-            
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-            <input type="submit">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="submit" value="Login">
         </form>
-        <p id="result">...</p>
+        <p id="message">...</p>
+        <script src="script.js"></script>
     </body>
 </html>
