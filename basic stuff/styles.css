@@ -1,54 +1,178 @@
-
-body{
+/* EASY PART - Basic styling you already know */
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #f5f7fb;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    padding: 20px;
 }
-h1#head{
-    margin-bottom: 12px;
+
+/* EASY PART - Container styling */
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
-form{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 280px;
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 28px;
 }
-input[type="text"],
-input[type="password"]{
-    padding: 10px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+
+.form-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
     font-size: 14px;
 }
-input[type="text"]:focus,
-input[type="password"]:focus{
-    outline: none;
-    border-color: blueviolet;
-    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.12);
+
+/* EASY PART - Form basics */
+.form-group {
+    margin-bottom: 20px;
 }
-input[type="submit"]{
-    padding: 10px;
-    background: blueviolet;
-    color: #ffffff;
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 500;
+}
+
+/* EASY PART - Input styling */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+/* MEDIUM PART - Focus states and transforms */
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+/* EASY PART - Button styling */
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
-input[type="submit"]:hover{
-    background: #7a20d9;
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
 }
-#result{
-    margin-top: 12px;
-    color: #6b7280;
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
+
+/* MEDIUM PART - Message styling */
+.message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.message.show {
+    opacity: 1;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* EASY PART - Toggle button */
+.toggle-mode {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.toggle-mode button {
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+/* HARDER PART - Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* MEDIUM PART - Password strength indicator */
+.password-strength {
+    margin-top: 5px;
+    height: 4px;
+    background: #e1e5e9;
+    border-radius: 2px;
+}
+
+.password-strength-bar {
+    height: 100%;
+    width: 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-weak { background: #dc3545; width: 25%; }
+.strength-fair { background: #fd7e14; width: 50%; }
+.strength-good { background: #28a745; width: 75%; }
+.strength-strong { background: #007bff; width: 100%; }
