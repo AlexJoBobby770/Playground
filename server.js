@@ -42,7 +42,6 @@ app.get("/", (req, res) => {
     res.json({ message: "Auth API is running!" });
 });
 
-// FIXED: Proper login with password hashing
 app.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
