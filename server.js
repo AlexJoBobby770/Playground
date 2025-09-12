@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bcrypt = require("bcrypt"); // For password hashing
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const app = express();
