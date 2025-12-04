@@ -12,44 +12,38 @@
         <p class="form-subtitle" id="formSubtitle">Sign in to your account</p>
         
         <form id="authForm">
-            <!-- Email field - hidden by default -->
+            
             <div class="form-group" id="emailGroup" style="display: none;">
                 <label for="email">Email</label>
                 <input type="email" id="email" placeholder="Enter your email">
             </div>
             
-            <!-- Username field -->
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" placeholder="Enter your username" required>
             </div>
             
-            <!-- Password field -->
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" placeholder="Enter your password" required>
-                <!-- Password strength indicator - hidden by default -->
+               
                 <div class="password-strength" id="passwordStrength" style="display: none;">
                     <div class="password-strength-bar" id="strengthBar"></div>
                 </div>
             </div>
-            
-            <!-- Confirm password - hidden by default -->
+      
             <div class="form-group" id="confirmPasswordGroup" style="display: none;">
                 <label for="confirmPassword">Confirm Password</label>
                 <input type="password" id="confirmPassword" placeholder="Confirm your password">
             </div>
             
-            <!-- Submit button -->
             <button type="submit" class="btn" id="submitBtn">
                 <span id="btnText">Sign In</span>
             </button>
         </form>
-        
-        <!-- Messages area -->
+       
         <div class="message" id="message"></div>
-        
-        <!-- Toggle between login/register -->
+      
         <div class="toggle-mode">
             <button type="button" id="toggleMode">Don't have an account? Sign up</button>
         </div>
