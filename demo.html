@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Frontend Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 10px;
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .form-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .tasks-list {
+            margin-top: 20px;
+        }
+        .task-item {
+            background: white;
+            border: 2px solid #e1e5e9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .task-info h3 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .task-info p {
+            color: #666;
+            font-size: 14px;
+        }
+        .delete-btn {
+            background: #dc3545;
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+        .file-upload {
+            background: #28a745;
+        }
+        .message {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 FastAPI + Frontend Demo</h1>
+        <div class="status" id="apiStatus">
+            Checking API connection...
+        </div>
+
+        <div id="message"></div>
+
+        <!-- Create Task Form -->
+        <div class="form-section">
+            <h2>Create New Task</h2>
+            <input type="text" id="taskTitle" placeholder="Task Title">
+            <textarea id="taskDesc" placeholder="Task Description" rows="3"></textarea>
+            <button onclick="createTask()">Add Task</button>
+        </div>
+
+        <!-- File Upload Demo -->
+        <div class="form-section">
+            <h2>Upload File (Demo for PDF later)</h2>
+            <input type="file" id="fileInput">
+            <button class="file-upload" onclick="uploadFile()">Upload File</button>
+        </div>
+
+        <!-- Tasks List -->
+        <div class="tasks-list">
+            <h2>Tasks</h2>
+            <button onclick="fetchTasks()" style="margin-bottom: 10px;">Refresh Tasks</button>
+            <div id="tasksList"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://127.0.0.1:8000";
+
+        // Check API connection on load
+        async function checkAPI() {
+            try {
+                const response = await fetch(`${API_URL}/`);
+                const data = await response.json();
+                document.getElementById('apiStatus').innerHTML = 
+                    `✅ Connected to API: ${data.message} | Tasks: ${data.tasks_count}`;
+                document.getElementById('apiStatus').style.background = '#d4edda';
+                document.getElementById('apiStatus').style.borderColor = '#28a745';
+                fetchTasks();
+            } catch (error) {
+                document.getElementById('apiStatus').innerHTML = 
+                    `❌ Cannot connect to API. Make sure FastAPI is running on port 8000`;
+                document.getElementById('apiStatus').style.background = '#f8d7da';
+                document.getElementById('apiStatus').style.borderColor = '#dc3545';
+            }
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const msgDiv = document.getElementById('message');
+            msgDiv.className = `message ${type}`;
+            msgDiv.textContent = text;
+            setTimeout(() => msgDiv.className = 'message', 3000);
+        }
+
+        // Create Task
+        async function createTask() {
+            const title = document.getElementById('taskTitle').value;
+            const description = document.getElementById('taskDesc').value;
+
+            if (!title || !description) {
+                showMessage('Please fill all fields', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/tasks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title, description })
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    showMessage('Task created successfully!', 'success');
+                    document.getElementById('taskTitle').value = '';
+                    document.getElementById('taskDesc').value = '';
+                    fetchTasks();
+                    checkAPI();
+                }
+            } catch (error) {
+                showMessage('Error creating task: ' + error.message, 'error');
+            }
+        }
+
+        // Fetch all tasks
+        async function fetchTasks() {
+            try {
+                const response = await fetch(`${API_URL}/tasks`);
+                const data = await response.json();
+                
+                const tasksList = document.getElementById('tasksList');
+                
+                if (data.tasks.length === 0) {
+                    tasksList.innerHTML = '<p style="color: #666;">No tasks yet. Create one!</p>';
+                    return;
+                }
+
+                tasksList.innerHTML = data.tasks.map(task => `
+                    <div class="task-item">
+                        <div class="task-info">
+                            <h3>${task.title}</h3>
+                            <p>${task.description}</p>
+                            <small style="color: #999;">ID: ${task.id} | Status: ${task.status}</small>
+                        </div>
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">Delete</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                showMessage('Error fetching tasks: ' + error.message, 'error');
+            }
+        }
+
+        // Delete task
+        async function deleteTask(taskId) {
+            try {
+                const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    showMessage('Task deleted!', 'success');
+                    fetchTasks();
+                    checkAPI();
+                }
+            } catch (error) {
+                showMessage('Error deleting task: ' + error.message, 'error');
+            }
+        }
+
+        // Upload file
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                showMessage('Please select a file', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    showMessage(`File uploaded: ${data.filename} (${data.size} bytes)`, 'success');
+                    fileInput.value = '';
+                }
+            } catch (error) {
+                showMessage('Error uploading file: ' + error.message, 'error');
+            }
+        }
+
+        // Check API on page load
+        checkAPI();
+    </script>
+</body>
+</html>
