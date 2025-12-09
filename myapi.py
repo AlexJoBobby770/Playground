@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Path
+from fastapi import FastAPI,Path,UploadFile
 from typing import Optional
 from pydantic import BaseModel
 
@@ -51,4 +51,10 @@ def update(student_id:int ,student :UpdateStudent):
     
     student[student_id]=UpdateStudent
     return student[student_id]
+@app.post("/upload")
+async def file_upload(uploaded_file:UploadFile):
+    data=await uploaded_file.read()
+    print(data)
+    
+
     
