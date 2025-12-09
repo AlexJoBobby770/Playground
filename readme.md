@@ -1,0 +1,1 @@
+as of now backend is still difficult esp with the password thingy on 8/9/25

@@ -1,9 +1,24 @@
-node_modules
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Environment variables
 .env
-readme.md
-.env
+
+# IDE / Editor
 .idea/
 .vscode/
+
+# Node (if frontend inside same repo)
+node_modules/
+
+# Project files that should not go to Git
 *.pdf
 *.zip
 *.csv
+
+# OS files
+.DS_Store
+Thumbs.db
