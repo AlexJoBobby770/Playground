@@ -1,6 +1,8 @@
-from fastapi import FastAPI,Path,UploadFile
+from fastapi import FastAPI,Path,UploadFile,File
 from typing import Optional
 from pydantic import BaseModel
+import tempfile
+from pdfminer.high_level import extract_text
 
 app=FastAPI()
 student={
@@ -51,10 +53,15 @@ def update(student_id:int ,student :UpdateStudent):
     
     student[student_id]=UpdateStudent
     return student[student_id]
-@app.post("/upload")
+@app.post("/upload")  
 async def file_upload(uploaded_file:UploadFile):
-    data=await uploaded_file.read()
-    print(data)
-    
+    with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        tmp.write(await uploaded_file.read())
+        tmp_path = tmp.name
+        text = extract_text(tmp_path)
+        print(text)
+
+
+
 
     
