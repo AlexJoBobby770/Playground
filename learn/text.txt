@@ -1,2 +1,3 @@
-hello world
-wth
+AIK24CS001,John,85
+AIK24CS002,Jane,92
+AIK24CS003,Bob,78
