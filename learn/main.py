@@ -27,9 +27,9 @@ else:
 
 # Function 4: re.sub() - Replace matches
 print("\n4. re.sub() - Replace/Substitute")
-result = re.sub(r'\(F\)', '(FAIL)', sample)
+sample = re.sub(r'\(F\)', '(FAIL)', sample)
 print(f"   Original: {sample}")
-print(f"   Replaced: {result}")
+print(f"   Replaced: {sample}")
 
 # Function 5: re.split() - Split by pattern
 print("\n5. re.split() - Split by pattern")
