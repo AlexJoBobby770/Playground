@@ -60,3 +60,35 @@ ws['C3'] = 92
 wb.save('my_first_excel.xlsx')
 print("✓ Created 'my_first_excel.xlsx'")
 print("  Open it and see your data!")
+
+print("\n" + "="*60)
+print("LESSON 3: Better Ways to Write Data")
+print("-"*60)
+
+# Method 1: Using row/column numbers
+wb = Workbook()
+ws = wb.active
+
+ws.cell(row=1, column=1, value="Method 1")
+ws.cell(row=1, column=2, value="Using cell()")
+print("Method 1: ws.cell(row=1, column=1, value='Data')")
+
+# Method 2: Using append (adds new row)
+ws.append(["Method 2", "Using append()"])
+print("Method 2: ws.append(['Data1', 'Data2'])")
+
+# Method 3: Loop through data
+students = [
+    ["AIK24CS001", "John", 85],
+    ["AIK24CS002", "Jane", 92],
+    ["AIK24CS003", "Bob", 78],
+]
+
+ws.append(["Register", "Name", "Score"])  # Header
+for student in students:
+    ws.append(student)
+
+print("Method 3: Loop through list of lists")
+
+wb.save('writing_methods.xlsx')
+print("✓ Created 'writing_methods.xlsx'")
