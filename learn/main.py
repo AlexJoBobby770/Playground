@@ -2,6 +2,7 @@ print("\n" + "="*60)
 print("LESSON 2: Nested Structures (The Power Move!)")
 print("-"*60)
 
+import json
 # Simple dictionary
 simple = {"name": "John", "score": 85}
 print("Simple dict:", simple)
