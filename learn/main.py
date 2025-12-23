@@ -1,50 +1,36 @@
-from openpyxl import Workbook, load_workbook
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.chart import BarChart, Reference
-from datetime import datetime
-
 print("\n" + "="*60)
-print("LESSON 6: Adding Excel Formulas")
+print("LESSON 2: Nested Structures (The Power Move!)")
 print("-"*60)
 
-wb = Workbook()
-ws = wb.active
-ws.title = "Calculations"
+# Simple dictionary
+simple = {"name": "John", "score": 85}
+print("Simple dict:", simple)
 
-# Headers
-ws.append(["Name", "Math", "Science", "Total", "Average", "Grade"])
+# Nested dictionary (dictionary inside dictionary)
+student = {
+    "register_no": "AIK24CS001",
+    "name": "John",
+    "courses": {
+        "MATH101": "A",
+        "PHY101": "B",
+        "CHEM101": "F"
+    },
+    "arrears": ["CHEM101"]
+}
 
-# Data
+print("\nNested dict:", json.dumps(student, indent=2))
+print("\nAccess nested data:")
+print(f"  Name: {student['name']}")
+print(f"  Math grade: {student['courses']['MATH101']}")
+print(f"  Has arrears: {len(student['arrears']) > 0}")
+
+# List of dictionaries (SUPER COMMON!)
 students = [
-    ["John", 85, 90],
-    ["Jane", 78, 82],
-    ["Bob", 92, 88],
+    {"reg": "AIK24CS001", "name": "John", "score": 85},
+    {"reg": "AIK24CS002", "name": "Jane", "score": 92},
+    {"reg": "AIK24CS003", "name": "Bob", "score": 78}
 ]
 
-for i, student in enumerate(students, start=2):  # Start from row 2
-    ws[f'A{i}'] = student[0]
-    ws[f'B{i}'] = student[1]
-    ws[f'C{i}'] = student[2]
-    
-    # Formula for Total (Math + Science)
-    ws[f'D{i}'] = f'=B{i}+C{i}'
-    
-    # Formula for Average
-    ws[f'E{i}'] = f'=D{i}/2'
-    
-    # Formula for Grade (IF statement)
-    ws[f'F{i}'] = f'=IF(E{i}>=80,"A",IF(E{i}>=60,"B","C"))'
-
-# Add totals at bottom
-last_row = ws.max_row + 1
-ws[f'A{last_row}'] = "TOTAL"
-ws[f'B{last_row}'] = f'=SUM(B2:B{last_row-1})'
-ws[f'C{last_row}'] = f'=SUM(C2:C{last_row-1})'
-
-# Bold the totals row
-for cell in ws[last_row]:
-    cell.font = Font(bold=True)
-
-wb.save('with_formulas.xlsx')
-print("✓ Created 'with_formulas.xlsx'")
-print("  Open it and see the calculations work!")
+print("\nList of dictionaries:")
+for student in students:
+    print(f"  {student['reg']}: {student['name']} scored {student['score']}")
