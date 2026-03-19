@@ -5,3 +5,10 @@ df = pd.read_csv('https://raw.githubusercontent.com/facebook/prophet/main/exampl
 df.head()
 m = Prophet()
 m.fit(df)
+future = m.make_future_dataframe(periods=365)
+future.tail()
+forecast = m.predict(future)
+forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+
+fig1 = m.plot(forecast)
+fig2 = m.plot_components(forecast)
